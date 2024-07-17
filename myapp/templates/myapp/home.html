@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Upload Files</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="files" multiple></br></br>
+        <label for="key">Enter your Key:</label>
+        <input type="text" name="key"></br></br>
+        <label for="dropdown">Choose an option:</label>
+        <select name="dropdown" id="dropdown">
+            <option value="aitools/text-video/">aitools/text-video/</option>
+            <option value="aitools/text-video/">aitools/text-video/</option>
+            <option value="aitools/text-video/">aitools/text-video/</option>
+        </select>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>
