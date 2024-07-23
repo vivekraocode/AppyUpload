@@ -2,21 +2,89 @@
 <html>
 <head>
     <title>Home</title>
+    <style>
+        .userOptions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .userOptions button {
+            width: 150px;
+        }
+
+        .modelsbox {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 10px;
+        }
+
+        .modelsbox input {
+            flex: 1;
+            height: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ccc; 
+            padding-left: 10px;
+        }
+
+        .modelsbox input:nth-child(2) {
+            margin: 0 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload Files</h1>
+    <h1 style="text-align: center;">Upload Ai products</h1>
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="files" multiple></br></br>
-        <label for="key">Enter your Key:</label>
-        <input type="text" name="key"></br></br>
-        <label for="dropdown">Choose an option:</label>
+        {% csrf_token %}            
+        <label for="dropdown">Select Product Type:</label>
         <select name="dropdown" id="dropdown">
-            <option value="aitools/text-video/">aitools/text-video/</option>
-            <option value="aitools/text-video/">aitools/text-video/</option>
-            <option value="aitools/text-video/">aitools/text-video/</option>
+             <option value="aitools/ai-avatar/">AI Avatar</option>
+             <option value="itools/ai-character/">Consistent Character</option>
+             <option value="aitools/ai-emoji/">Text to Emoji</option>
+             <option value="aitools/ai-gif/">Text to Gif</option>
+             <option value="aitools/ai-image-to-video/">Image To Video</option>
+             <option value="aitools/ai-images/">Image to Animation</option>
+             <option value="aitools/ai-logo/">Text to logo</option>
+             <option value="aitools/ai-music/">Text to Music</option>
+             <option value="aitools/ai-qrcode/">Text to QR</option>
+             <option value="aitools/ai-sticker/">Text to Sticker</option>
+             <option value="aitools/ai-text-to-image/">Text To Image</option>
+             <option value="aitools/text-animation/">Text To Animation/</option>
+             <option value="aitools/text-video/">Text to video</option>
+             <option value="aitools/video-animation/">Video to Animation</option>
         </select>
-        <button type="submit">Upload</button>
+        <label for="key" style="margin-left: 40px;">Enter your Key:</label>
+        <input type="password" name="key">
+        </br></br>
+        <div id="modelsboxContainer">
+            <div class="modelsbox" id="uploadField1">
+                <input name = "prompt1"  type="text" placeholder="Prompt value">
+                <input name = "url1"  type="text" placeholder="Enter Image URL">
+                <input name = "displayname1"  type="text" placeholder="Image display name">
+            </div>
+        </div>
+        </br></br> 
+        <input type="hidden" id="count" name="count" value="1">
+        <div class="userOptions">    
+            <button id="addNewUploadField">Add New</button>   
+            <button type="submit" style="background-color:blue; color: white;">Upload</button>
+        </div>
     </form>
+    <script>
+        let count = 2;
+        document.getElementById('addNewUploadField').addEventListener('click', function(event) {
+            event.preventDefault(); 
+            var newField = document.createElement('div');
+            newField.className = 'modelsbox';
+            newField.id = "uploadField"+toString(count);
+            newField.innerHTML = `
+                <input name = "prompt${count}" type="text" placeholder="Prompt value">
+                <input name = "url${count}"    type="text" placeholder="Enter Image URL">
+                <input name = "displayname${count}"  type="text" placeholder="Image display name">
+            `;
+            document.getElementById('modelsboxContainer').appendChild(newField);
+            document.getElementById('count').value = count;
+            count++;
+        });
+    </script>
 </body>
 </html>
